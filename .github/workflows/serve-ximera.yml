@@ -51,7 +51,7 @@ jobs:
           XIMERA_NAME: precalcwithreview*main
           # XIMERA_NAME: ${{ vars.XIMERA_NAME }}${{ github.ref_name }}
         run: |
-          ls -alrt
+          # ls -alrt
           chmod +x xmScripts/xmlatex   # Overleaf sync might reset it :-()
           ./xmScripts/xmlatex ghaction
           echo "✅ Published to $XIMERA_URL$XIMERA_NAME " >> $GITHUB_STEP_SUMMARY
