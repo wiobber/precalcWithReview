@@ -47,8 +47,9 @@ jobs:
           # (The defaults will presumably make this step fail.)
           GPG_KEY: ${{ secrets.GPG_KEY }}
           GPG_KEY_ID: ${{ secrets.GPG_KEY_ID }}
-          XIMERA_URL: https://ximera.osu.edu/
-          XIMERA_NAME: ${{ vars.XIMERA_NAME }}${{ github.ref_name }}
+          XIMERA_URL: https://xerxes.ximera.org/
+          XIMERA_NAME: precalcwithreview*main
+          # XIMERA_NAME: ${{ vars.XIMERA_NAME }}${{ github.ref_name }}
         run: |
           ls -alrt
           chmod +x xmScripts/xmlatex   # Overleaf sync might reset it :-()
@@ -85,8 +86,10 @@ jobs:
         env:
           GPG_KEY: ${{ secrets.GPG_KEY }}
           GPG_KEY_ID: ${{ secrets.GPG_KEY_ID }}
-          XIMERA_URL: ${{ vars.XIMERA_URL }}
-          XIMERA_NAME: ${{ vars.XIMERA_NAME }}
+          XIMERA_URL: https://xerxes.ximera.org/
+          XIMERA_NAME: precalcwithreview
+          # XIMERA_URL: ${{ vars.XIMERA_URL }}
+          # XIMERA_NAME: ${{ vars.XIMERA_NAME }}
         run: |
           chmod +x xmScripts/xmlatex # Overleaf sync might reset it :-()
           ./xmScripts/xmlatex name         
