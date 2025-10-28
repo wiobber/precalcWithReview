@@ -142,7 +142,8 @@ jobs:
           XIMERA_URL: https://ximera.osu.edu/
           XIMERA_NAME: wimprecalcwithreview #REAL NAME
         run: |
-          [  -f git-folder.tgz ] && tar xvf git_folder.tgz
+          ls -al
+          [  -f git-folder.tgz ] && tar xvf git-folder.tgz
           # chmod +x xmScripts/xmlatex # Overleaf sync might reset it :-()
           git config --global --add safe.directory "$GITHUB_WORKSPACE"
           # mkdir -p .git/refs/heads
