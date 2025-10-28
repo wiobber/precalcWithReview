@@ -137,6 +137,9 @@ jobs:
           XIMERA_NAME: wimprecalcwithreview #REAL NAME
         run: |
           # chmod +x xmScripts/xmlatex # Overleaf sync might reset it :-()
+          git config --global --add safe.directory "$GITHUB_WORKSPACE"
+          # mkdir -p .git/refs/heads
+          # [[ -f ".git/refs/heads/master.tex" ]] ||  date >".git/refs/heads/master.tex"            
           $XMLATEX name         
           $XMLATEX serve -f  # NOTE: -f  should not be needed ...        
           echo "✅ Published to $XIMERA_URL$XIMERA_NAME " >> $GITHUB_STEP_SUMMARY
