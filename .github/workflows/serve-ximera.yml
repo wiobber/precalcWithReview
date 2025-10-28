@@ -32,10 +32,14 @@ env:
     XMLATEX: xmlatex
     TEXMFHOME: /root/texmf     # Should be set in xmlatex !     
     XM_PATCH_RESTORE_MTIME: skip 
+    GIT_CURL_VERBOSE: 1
+    GIT_TRACE: 1 
+    SKIP_BUILD: true
 
 jobs:
   build-ximera:
     name: Build and preview Ximera Courses
+    if: ${{ env.SKIP_BUILD != 'true' }}
     runs-on: ubuntu-latest
     container: &x-container
       image: ghcr.io/ximeraproject/ximeralatex:xxx      # 2.7.8 with some extra packages
@@ -113,6 +117,8 @@ jobs:
   publish-ximera:
     name: Publish Ximera Courses
     needs: build-ximera # Waits for the build job to complete
+    # if: ${{ env.SKIP_BUILD != 'true' }}
+    if: ${{ always() && (needs.build-ximera.result == 'success' || needs.build-ximera.result == 'skipped') }}
     runs-on: ubuntu-latest
     container: *x-container
     environment: production  # Allows for 'manual review' step
