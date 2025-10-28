@@ -126,6 +126,10 @@ jobs:
       #     key: ximeraSERVE-${{ github.ref_name }}-${{ github.sha }}
 
       # Download artifact from previous job
+      - name: "Prepare: Checkout code"
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 5      
       - name: "Prepare: Checkout artifacts (from previous step)"
         uses: actions/download-artifact@v4
         with:
