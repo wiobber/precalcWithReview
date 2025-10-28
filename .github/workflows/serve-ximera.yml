@@ -52,7 +52,7 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
         with:
-          fetch-depth: 100   # full 
+          fetch-depth: 0   # full 
 
       - name: Setup cache
         uses: actions/cache@v4
