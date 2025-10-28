@@ -73,6 +73,7 @@ jobs:
           XIMERA_NAME: wimprecalctestreviewoct #TEST NAME
         run: |
           ls -alrt
+          env
           chmod +x xmScripts/xmlatex   # Overleaf sync might reset it :-()
           rm -rf ximera-downloads      # HACK: only needed when it could be present in the cache !!
           ./xmScripts/xmlatex ghaction 
