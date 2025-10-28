@@ -112,6 +112,7 @@ jobs:
     name: Publish Ximera Courses
     needs: build-ximera # Waits for the build job to complete
     runs-on: ubuntu-latest
+    container: *x-container
     environment: production  # Allows for 'manual review' step
     steps:
       # - name: Restore ximera serve cache (only .git)
