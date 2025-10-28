@@ -33,6 +33,10 @@ jobs:
   build-ximera:
     name: Build and preview Ximera Courses
     runs-on: ubuntu-latest
+    container: &x-container
+      image: ghcr.io/ximeraproject/ximeralatex:v2.7.8-full
+      options: >-
+        --workdir /code    
 
     permissions:
       actions: read
