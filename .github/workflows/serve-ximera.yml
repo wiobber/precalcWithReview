@@ -52,7 +52,7 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
         with:
-          fetch-depth: 0   # full 
+          fetch-depth: 15   # full 
 
       - name: Setup cache
         uses: actions/cache@v4
@@ -149,7 +149,7 @@ jobs:
           # mkdir -p .git/refs/heads
           # [[ -f ".git/refs/heads/master.tex" ]] ||  date >".git/refs/heads/master.tex"            
           $XMLATEX name         
-          $XMLATEX serve -f  # NOTE: -f  should not be needed ...        
+          $XMLATEX serve -f -t  # NOTE: -f  should not be needed ...        
           echo "✅ Published to $XIMERA_URL$XIMERA_NAME " >> $GITHUB_STEP_SUMMARY
 
 
