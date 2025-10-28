@@ -53,6 +53,7 @@ jobs:
         run: |
           ls -alrt
           chmod +x xmScripts/xmlatex   # Overleaf sync might reset it :-()
+          rm -rf ximera-downloads
           ./xmScripts/xmlatex ghaction --compile html pre*tex Pre*tex    # Only 'main' courses 
           echo "✅ Published to $XIMERA_URL$XIMERA_NAME " >> $GITHUB_STEP_SUMMARY
 
