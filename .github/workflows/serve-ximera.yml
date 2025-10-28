@@ -87,6 +87,7 @@ jobs:
           rm -rf ximera-downloads      # HACK: only needed when it could be present in the cache !!
           $XMLATEX ghaction 
           echo "✅ Published to $XIMERA_URL$XIMERA_NAME " >> $GITHUB_STEP_SUMMARY
+        shell: bash          
 
       - name: Setup ximera serve cache (only .git)
         id: serve-cache
