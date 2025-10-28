@@ -101,16 +101,15 @@ jobs:
             .git/**
           key: ximeraSERVE-${{ github.ref_name }}-${{ github.sha }}
 
-      # Upload artifacts
+      - name: "Archive .git folder"
+        run: tar czf git-folder.tgz .git      
+            
+                # Upload artifacts
       - name: "Postprocess: Save artifacts"
         uses: actions/upload-artifact@v4
         with:
           name: ximerabuild
-          path: | 
-            .
-            .git
-
-
+          path: .
   publish-ximera:
     name: Publish Ximera Courses
     needs: build-ximera # Waits for the build job to complete
@@ -137,14 +136,13 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: ximerabuild
-          path: \
-            .
-            .git
+          path: .
       - name: Serve
         env:
           XIMERA_URL: https://ximera.osu.edu/
           XIMERA_NAME: wimprecalcwithreview #REAL NAME
         run: |
+          [  -f git-folder.tgz ] && tar xvf git_folder.tgz
           # chmod +x xmScripts/xmlatex # Overleaf sync might reset it :-()
           git config --global --add safe.directory "$GITHUB_WORKSPACE"
           # mkdir -p .git/refs/heads
