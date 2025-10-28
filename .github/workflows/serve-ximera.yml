@@ -28,6 +28,8 @@ env:
     # XM_TO_PROCESS: "testxourse.tex" 
     XM_TO_PROCESS: "PrecWRev1Unit1.tex"
     # XM_TO_PROCESS: "."     
+    #
+    XMLATEX: xmlatex
 
 jobs:
   build-ximera:
@@ -78,9 +80,9 @@ jobs:
         run: |
           ls -alrt
           env
-          chmod +x xmScripts/xmlatex   # Overleaf sync might reset it :-()
+          # chmod +x xmScripts/xmlatex   # Overleaf sync might reset it :-()
           rm -rf ximera-downloads      # HACK: only needed when it could be present in the cache !!
-          ./xmScripts/xmlatex ghaction 
+          $XMLATEX ghaction 
           echo "✅ Published to $XIMERA_URL$XIMERA_NAME " >> $GITHUB_STEP_SUMMARY
 
       - name: Setup ximera serve cache (only .git)
@@ -114,9 +116,9 @@ jobs:
           XIMERA_URL: https://ximera.osu.edu/
           XIMERA_NAME: wimprecalcwithreview #REAL NAME
         run: |
-          chmod +x xmScripts/xmlatex # Overleaf sync might reset it :-()
-          ./xmScripts/xmlatex name         
-          ./xmScripts/xmlatex serve -f  # NOTE: -f  should not be needed ...        
+          # chmod +x xmScripts/xmlatex # Overleaf sync might reset it :-()
+          $XMLATEX name         
+          $XMLATEX serve -f  # NOTE: -f  should not be needed ...        
           echo "✅ Published to $XIMERA_URL$XIMERA_NAME " >> $GITHUB_STEP_SUMMARY
 
 
