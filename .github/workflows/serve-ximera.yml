@@ -34,7 +34,7 @@ env:
     XM_PATCH_RESTORE_MTIME: skip 
     GIT_CURL_VERBOSE: 1
     GIT_TRACE: 1 
-    SKIP_BUILD: true
+    SKIP_BUILD: "true"
 
 jobs:
   build-ximera:
