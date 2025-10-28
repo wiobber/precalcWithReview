@@ -5,7 +5,7 @@ on:
     #tags:
     # - 'v*'  # Trigger the workflow when a new tag starting with 'v' is pushed   
 
-  env:
+env:
     # The GPG_KEY and GPG_KEY_ID variables can/should be set at repository level
     # If not set, defaults from xmScripts/config.txt or xmlatex will be used 
     # (The defaults will presumably make this step fail.)
