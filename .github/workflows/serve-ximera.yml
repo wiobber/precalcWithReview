@@ -80,6 +80,9 @@ jobs:
         run: |
           ls -alrt
           env
+          git config --global --add safe.directory "$GITHUB_WORKSPACE"
+          mkdir -p .git/refs/heads
+          [[ -f ".git/refs/heads/master.tex" ]] ||  date >".git/refs/heads/master.tex"
           # chmod +x xmScripts/xmlatex   # Overleaf sync might reset it :-()
           rm -rf ximera-downloads      # HACK: only needed when it could be present in the cache !!
           $XMLATEX ghaction 
