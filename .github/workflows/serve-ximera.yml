@@ -30,7 +30,8 @@ env:
     # XM_TO_PROCESS: "."     
     #
     XMLATEX: xmlatex
-    TEXMFHOME: /root/texmf     # Should be set in xmlatex !      
+    TEXMFHOME: /root/texmf     # Should be set in xmlatex !     
+    XM_PATCH_RESTORE_MTIME: skip 
 
 jobs:
   build-ximera:
@@ -105,7 +106,9 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: ximerabuild
-          path: .          
+          path: | 
+            .
+            .git
 
 
   publish-ximera:
@@ -126,15 +129,17 @@ jobs:
       #     key: ximeraSERVE-${{ github.ref_name }}-${{ github.sha }}
 
       # Download artifact from previous job
-      - name: "Prepare: Checkout code"
-        uses: actions/checkout@v4
-        with:
-          fetch-depth: 5      
+      # - name: "Prepare: Checkout code"
+      #   uses: actions/checkout@v4
+      #   with:
+      #     fetch-depth: 5      
       - name: "Prepare: Checkout artifacts (from previous step)"
         uses: actions/download-artifact@v4
         with:
           name: ximerabuild
-          path: .          
+          path: \
+            .
+            .git
       - name: Serve
         env:
           XIMERA_URL: https://ximera.osu.edu/
