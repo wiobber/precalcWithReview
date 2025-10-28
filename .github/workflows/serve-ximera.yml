@@ -5,6 +5,30 @@ on:
     #tags:
     # - 'v*'  # Trigger the workflow when a new tag starting with 'v' is pushed   
 
+  env:
+    # The GPG_KEY and GPG_KEY_ID variables can/should be set at repository level
+    # If not set, defaults from xmScripts/config.txt or xmlatex will be used 
+    # (The defaults will presumably make this step fail.)
+    GPG_KEY: ${{ secrets.GPG_KEY }}
+    GPG_KEY_ID: ${{ secrets.GPG_KEY_ID }}
+    #
+    # The XIMERA_URL variable determines on which Ximera-server this repo  will be published
+    # XIMERA_URL: https://xerxes.ximera.org/
+    # XIMERA_URL: https://ximera.osu.edu/
+    #
+    # The XIMERA_NAME variable determines under which name this repo  will be published
+    # It might/will be overwritten below (for test/production deploys)
+    # XIMERA_NAME: myreponame
+    #
+    # Optional variables to influence the build process:
+    #  (These variables are used by the xmlatex script, and could also be set in xmScripts/config.txt)
+    XM_COMPILE_SEQUENCE: html
+    # XM_COMPILE_SEQUENCE: pdf,html
+    #
+    # XM_TO_PROCESS: "testxourse.tex" 
+    XM_TO_PROCESS: "PrecWRev1Unit1.tex"
+    # XM_TO_PROCESS: "."     
+
 jobs:
   build-ximera:
     name: Build and preview Ximera Courses
@@ -45,16 +69,13 @@ jobs:
           # These variables can/should be set at repository level
           # If not set, defaults from xmScripts/config.txt or xlatex will be used 
           # (The defaults will presumably make this step fail.)
-          GPG_KEY: ${{ secrets.GPG_KEY }}
-          GPG_KEY_ID: ${{ secrets.GPG_KEY_ID }}
-          # XIMERA_URL: https://ximera.osu.edu/
           XIMERA_URL: https://xerxes.ximera.org/
           XIMERA_NAME: wimprecalctestreviewoct #TEST NAME
         run: |
           ls -alrt
           chmod +x xmScripts/xmlatex   # Overleaf sync might reset it :-()
-          rm -rf ximera-downloads
-          ./xmScripts/xmlatex ghaction --compile html pre*tex Pre*tex    # Only 'main' courses 
+          rm -rf ximera-downloads      # HACK: only needed when it could be present in the cache !!
+          ./xmScripts/xmlatex ghaction 
           echo "✅ Published to $XIMERA_URL$XIMERA_NAME " >> $GITHUB_STEP_SUMMARY
 
       - name: Setup ximera serve cache (only .git)
@@ -85,8 +106,6 @@ jobs:
           
       - name: Serve
         env:
-          GPG_KEY: ${{ secrets.GPG_KEY }}
-          GPG_KEY_ID: ${{ secrets.GPG_KEY_ID }}
           XIMERA_URL: https://ximera.osu.edu/
           XIMERA_NAME: wimprecalcwithreview #REAL NAME
         run: |
